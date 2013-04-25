@@ -1,0 +1,173 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Wifi QR code</title>
+
+		<!-- use //ajax for online web -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="jquery.qrcode.min.js"></script>
+
+		<!-- Reference the theme's stylesheet on the Google CDN -->
+		<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/ui-lightness/jquery-ui.css"
+			type="text/css" rel="Stylesheet" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+
+		<style>
+			body {
+				font-family: "Trebuchet MS", "Helvetica", "Arial",  "Verdana", "sans-serif";
+				font-size: 80%;
+			}
+
+			#content {
+				border: 1px solid black;
+				float: left;
+				padding: 10px;
+				margin: 10px;
+			}
+
+			#qrcode {
+				margin: 0 auto 20px;
+				width: 256px;
+				height: 256px;
+				background: #cccccc;
+			}
+			
+			#qrsub {
+				margin: 0 auto;
+				display: table;
+				font-family: Courier New;
+				display: none;
+			}
+			
+			#about {
+				border: 1px solid black;
+				float: left;
+				padding: 10px;
+				margin: 10px;
+			}
+			
+			input[type=text],
+			input[type=password] {
+				width: 100%;
+				display:block;
+				-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+				-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+				box-sizing: border-box;         /* Opera/IE 8+ */
+			}
+			
+			.radio {
+				display: inline;
+			}
+			
+			a {
+				text-decoration: none;
+			}
+			
+			a:visited {
+				color: #0000ff;
+			}
+			
+			a:hover {
+				text-decoration: underline;
+			}
+		</style>
+
+		<script>
+			// http://jeromeetienne.github.io/jquery-qrcode/
+			// https://code.google.com/p/zxing/wiki/BarcodeContents
+
+			// H:true vs B:true for hidden networks:
+			// https://code.google.com/p/zxing/issues/detail?id=1218
+			// https://code.google.com/p/zxing/issues/detail?id=1455
+
+			$(function() {
+				$("input:submit, input:checkbox, button").button();
+				$(".radio").buttonset();
+				$('input').addClass("ui-corner-all");
+				$('input:text, input:password')
+					.button()
+					.css({
+						'font-size' : 'inherit',
+						'color' : 'inherit',
+						'text-align' : 'left',
+						'outline' : 'none',
+						'cursor' : 'text'
+						})
+					.focus(function() { $(this).select() })
+					.mouseup(function(e) { e.preventDefault(); });
+				
+				$("#H").click(function() {
+					$(this).button('option', 'label', $(this).is(':checked') ? 'Hidden' : 'Visible');
+				});
+			});
+
+			function mecard_escape(str) {
+				str = str.replace(/\\/g, "\\\\");
+				str = str.replace(/\"/g, "\\\"");
+				str = str.replace(/;/g, "\\;");
+				str = str.replace(/:/g, "\\:");
+				str = str.replace(/,/g, "\\,");
+				return str;
+			}
+
+			function generateQR() {
+				var type = $("input:radio[name=T]:checked").val();
+				var ssid = mecard_escape($("#S").val());
+				var key = mecard_escape($("#P").val());
+			
+				var url = "WIFI:" +
+					"T:" + type + ";" +
+					"S:" + ssid + ";" +
+					"P:" + key + ";" +
+					($("#H").is(":checked") ? "H:true;B:true;" : "") +
+					";";
+
+				$("#qrcode").empty().qrcode({text: url});
+				$("#qrsub").text(url);
+			}
+		</script>
+	</head>
+	<body>
+		<div id="content">
+			<div id="qrcode"></div>
+			<div id="qrsub">&nbsp;</div>
+			<table>
+				<tr>
+					<td><label>Encryption:</label></td>
+					<td><div class="radio">
+						<input type="radio" id="type_wep" name="T" value="WEP"/><label for="type_wep">WEP</label>
+						<input type="radio" id="type_wpa" name="T" value="WPA" checked="checked"/><label for="type_wpa">WPA/WPA2-PSK</label>
+						<input type="radio" id="type_none" name="T" value="none"/><label for="type_none">none</label>
+					</div></td>
+				</tr>
+				<tr>
+					<td>SSID:</td>
+					<td><input type="text" id="S" value="SSID"></td>
+				</tr>
+				<tr>
+					<td>Password:</td>
+					<td><input type="password" id="P" value="password"></td>
+				</tr>
+				<tr>
+					<td>Visibility:</td>
+					<td><input type="checkbox" id="H" value="true" /><label for="H">Visible</label></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<button onClick="generateQR()">Generate</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div id="about">
+			<b>About</b><br>
+			<ul>
+				<li>jQuery - <a href="http://jquery.com/">http://jquery.com</a></li>
+				<li>jQuery UI - <a href="http://jqueryui.com/">http://jqueryui.com</a></li>
+				<li>jquery.qrcode.js - <a href="http://jeromeetienne.github.io/jquery-qrcode/">http://jeromeetienne.github.io/jquery-qrcode</a></li>
+				<li>ZXing documentation - <a href="https://code.google.com/p/zxing/wiki/BarcodeContents">https://code.google.com/p/zxing/wiki/BarcodeContents</a></li>
+			</ul>
+		</div>
+	</body>
+</html>
