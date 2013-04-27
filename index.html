@@ -1,4 +1,4 @@
-<!doctype html>
+<!doctype html/>
 <html>
 	<head>
 		<title>WiFi QR-code - Javascript</title>
@@ -63,7 +63,7 @@
 				border-spacing: 0;
 			}
 			/********** END RESET **********/
-			
+
 			body {
 				font-family: "Trebuchet MS", "Helvetica", "Arial",  "Verdana", "sans-serif";
 				font-size: 100%;
@@ -168,6 +168,61 @@
 				vertical-align: bottom;
 			}
 		</style>
+		
+		<style target="card" disabled="true">
+			/****** Print Card ******/
+			
+			#card {
+				margin: 4mm;
+				width: 54mm;
+				height: 85mm;
+				border: 1px dashed black;
+				position: relative;
+				font-family: "Trebuchet MS", "Helvetica", "Arial",  "Verdana", "sans-serif";
+				font-size: 2.8mm;
+				line-height: 1;
+			}
+			
+			#card #cardcontent {
+				margin: 2mm;
+				height: 80mm;
+				width: auto;
+				left: 0;
+				right: 0;
+				border: 1px solid black;
+				position: absolute;
+			}
+			
+			#card #qrcode canvas {
+				width: 42mm;
+				height: 42mm;
+				margin: 3mm auto;
+				display: table;
+			}
+			
+			#card #qrtitle {
+				margin: 0 3mm;
+				font-weight: bold;
+			}
+			
+			#card #text {
+				margin: 3mm;
+			}
+			
+			#card #about {
+				position: absolute;
+				left: 14mm;
+				bottom: 3mm;
+				font-size: 80%;
+			}
+			
+			#card #wifilogo {
+				position: absolute;
+				left: 3mm;
+				bottom: 3mm;
+				width: 8mm;
+			}
+		</style>
 
 		<script>
 			// http://jeromeetienne.github.io/jquery-qrcode/
@@ -220,24 +275,29 @@
 					";";
 
 				divCanvas.empty().qrcode(url);
-				divText.html('<img src="wifi2.png" style="vertical-align:text-top;"> ' + $("#S").val() + ' (' + type + ')');
+				divText.html('' + $("#S").val() + ' (' + type + ')');
 			}
 			
-			function printQR() {
-				var printWin = window.open('', 'qrcodewifi', '');
-				printWin.document.write('<doctype html><html><head><title>WiFi: ' + $("#S").val() + '</title></head><body>');
-				printWin.document.write('<div id="qrresult">');
+			window.printQR = function(targetWin) {
+				var printWin = window.open('', '_blank', '');
+
+				printWin.document.write('<!doctype html/><html><head><title>WiFi: ' + $("#S").val() + '</title></head><body>');
+				printWin.document.write('<div id="card">');
+				printWin.document.write('<div id="cardcontent">');
 				printWin.document.write('<div id="qrcode"></div>');
-				printWin.document.write('<div id="qrsub"></div>');
+				printWin.document.write('<div id="qrtitle"></div>');
+				printWin.document.write('<div id="text">Connect to the network by scanning the QR code above with your (Android) device.</div>');
+				printWin.document.write('<img src="wifi.png" id="wifilogo">');
+				printWin.document.write('<div id="about">Generate your WiFi QR at<br/>http://qistoph.github.io/WiFiQR</div>');
 				printWin.document.write('</div>');
-				printWin.document.write('WiFi QR-code generator - http://qistoph.github.io/WiFiQR/');
+				printWin.document.write('</div>');
 				printWin.document.write('</body></html>');
 				
-				$("link, style, script").each(function() {
+				$("style[target='card']").each(function() {
 					$(printWin.document.head).append($(this).clone())
 				});
 				
-				generateQR($("#qrcode", printWin.document), $("#qrsub", printWin.document));
+				generateQR($("#qrcode", printWin.document), $("#qrtitle", printWin.document));
 				printWin.print();
 				printWin.close();
 			}
