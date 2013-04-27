@@ -1,7 +1,13 @@
-<!doctype html/>
+<!doctype html>
 <html>
 	<head>
 		<title>WiFi QR-code - Javascript</title>
+
+		<!-- Facebook Meta Tags -->
+		<meta property="og:url" content="http://qistoph.github.io/WiFiQR/" />
+		<meta property="og:title" content="WiFi QR-code" />
+		<meta property="og:description" content="Share your WiFi easily with a QR-code" />
+		<meta property="og:image" content="http://qistoph.github.io/WiFiQR/example.png" />
 
 		<!-- Reference scripts and theme stylesheet on the Google CDN -->
 		<!-- use //ajax... for online web to automatically switch between http and https -->
@@ -285,7 +291,7 @@
 			window.printQR = function(targetWin) {
 				var printWin = window.open('', '_blank', '');
 
-				printWin.document.write('<!doctype html/><html><head><title>WiFi: ' + $("#S").val() + '</title></head><body>');
+				printWin.document.write('<!doc'+'type html><ht'+'ml><he'+'ad><title>WiFi: ' + $("#S").val() + '</title></he'+'ad><bo'+'dy>');
 				printWin.document.write('<div id="card">');
 				printWin.document.write('<div id="cardcontent">');
 				printWin.document.write('<div id="qrcode"></div>');
@@ -295,15 +301,16 @@
 				printWin.document.write('<div id="about">Generate your WiFi QR at<br/>http://qistoph.github.io/WiFiQR</div>');
 				printWin.document.write('</div>');
 				printWin.document.write('</div>');
-				printWin.document.write('</body></html>');
+				printWin.document.write('</bo'+'dy></ht'+'ml>');
 				
 				$("style[target='card']").each(function() {
 					$(printWin.document.head).append($(this).clone())
 				});
 				
 				generateQR($("#qrcode", printWin.document), $("#qrtitle", printWin.document));
-				printWin.print();
-				//printWin.close();
+				$(printWin.document).ready(function() {
+					printWin.print();
+				});
 			}
 		</script>
 	</head>
