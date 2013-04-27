@@ -307,8 +307,9 @@
 				});
 				
 				generateQR($("#qrcode", printWin.document), $("#qrtitle", printWin.document));
-				printWin.print();
-				//printWin.close();
+				$(printWin.document).ready(function() {
+					printWin.print();
+				});
 			}
 		</script>
 	</head>
