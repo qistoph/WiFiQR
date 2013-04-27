@@ -1,8 +1,9 @@
-<!doctype html/>
+<!doctype html>
 <html>
 	<head>
 		<title>WiFi QR-code - Javascript</title>
 
+		<!-- Facebook Meta Tags -->
 		<meta property="og:url" content="http://qistoph.github.io/WiFiQR/" />
 		<meta property="og:title" content="WiFi QR-code" />
 		<meta property="og:description" content="Share your WiFi easily with a QR-code" />
@@ -290,7 +291,7 @@
 			window.printQR = function(targetWin) {
 				var printWin = window.open('', '_blank', '');
 
-				printWin.document.write('<!doc'+'type html/><ht'+'ml><he'+'ad><title>WiFi: ' + $("#S").val() + '</title></he'+'ad><bo'+'dy>');
+				printWin.document.write('<!doc'+'type html><ht'+'ml><he'+'ad><title>WiFi: ' + $("#S").val() + '</title></he'+'ad><bo'+'dy>');
 				printWin.document.write('<div id="card">');
 				printWin.document.write('<div id="cardcontent">');
 				printWin.document.write('<div id="qrcode"></div>');
