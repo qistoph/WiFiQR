@@ -132,6 +132,12 @@
 				font-family: Courier New;
 				display: table;
 			}
+
+			#qrkey {
+				margin: 0.2em auto 0;
+				font-family: Courier New;
+				display: table;
+			}
 			
 			#about {
 				border: 1px solid black;
@@ -214,11 +220,15 @@
 				margin: 0 3mm;
 				font-weight: bold;
 			}
+
+			#card #qrkey {
+				margin: 0 3mm;
+			}
 			
 			#card #text {
 				margin: 3mm;
 			}
-			
+
 			#card #about {
 				position: absolute;
 				left: 14mm;
@@ -261,6 +271,10 @@
 				$("#H").click(function() {
 					$(this).button('option', 'label', $(this).is(':checked') ? 'Hidden' : 'Visible');
 				});
+
+				$("#PS").click(function() {
+					$(this).button('option', 'label', $(this).is(':checked') ? 'Show' : 'Hide');
+				});
 			});
 
 			function mecard_escape(str) {
@@ -272,7 +286,7 @@
 				return str;
 			}
 			
-			function generateQR(divCanvas, divText) {
+			function generateQR(divCanvas, divText, divKey) {
 				var type = $("input:radio[name=T]:checked").val();
 				var ssid = mecard_escape($("#S").val());
 				var key = mecard_escape($("#P").val());
@@ -286,6 +300,12 @@
 
 				divCanvas.empty().qrcode(url);
 				divText.html('' + $("#S").val() + ' (' + type + ')');
+				
+				if($('#PS').is(':checked')) {
+					divKey.html('' + key);
+				} else {
+					divKey.html('&nbsp;');
+				}
 			}
 			
 			window.printQR = function(targetWin) {
@@ -296,6 +316,7 @@
 				printWin.document.write('<div id="cardcontent">');
 				printWin.document.write('<div id="qrcode"></div>');
 				printWin.document.write('<div id="qrtitle"></div>');
+				printWin.document.write('<div id="qrkey"></div>');
 				printWin.document.write('<div id="text">Connect to the network by scanning the QR code above with your (Android) device.</div>');
 				printWin.document.write('<img src="wifi.png" id="wifilogo">');
 				printWin.document.write('<div id="about">Generate your WiFi QR at<br/>http://qistoph.github.io/WiFiQR</div>');
@@ -307,7 +328,7 @@
 					$(printWin.document.head).append($(this).clone())
 				});
 				
-				generateQR($("#qrcode", printWin.document), $("#qrtitle", printWin.document));
+				generateQR($("#qrcode", printWin.document), $("#qrtitle", printWin.document), $("#qrkey", printWin.document));
 				$(printWin.document).ready(function() {
 					printWin.print();
 				});
@@ -321,6 +342,7 @@
 				<div id="qrresult">
 					<div id="qrcode"></div>
 					<div id="qrsub">&nbsp;</div>
+					<div id="qrkey">&nbsp;</div>
 				</div>
 				<table>
 					<tr>
@@ -340,12 +362,16 @@
 						<td><input type="password" id="P" value="somepassword"></td>
 					</tr>
 					<tr>
+						<td>Password:</td>
+						<td><input type="checkbox" id="PS" value="true" checked /><label for="PS">Show</label></td>
+					</tr>
+					<tr>
 						<td>Visibility:</td>
 						<td><input type="checkbox" id="H" value="true" /><label for="H">Visible</label></td>
 					</tr>
 					<tr>
 						<td>&nbsp;</td>
-						<td><button onClick="generateQR($('#qrcode'), $('#qrsub'))">Generate</button> <button onClick="printQR()">Print</button></td>
+						<td><button onClick="generateQR($('#qrcode'), $('#qrsub'), $('#qrkey'))">Generate</button> <button onClick="printQR()">Print</button></td>
 					</tr>
 				</table>
 				<div id="spread">
