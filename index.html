@@ -11,20 +11,20 @@
 
 		<!-- Reference scripts and theme stylesheet on the Google CDN -->
 		<!-- use //ajax... for online web to automatically switch between http and https -->
-		<link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/ui-lightness/jquery-ui.css"
+		<link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/ui-lightness/jquery-ui.css"
 			type="text/css" rel="Stylesheet" />
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
 
 		<script src="jquery.qrcode.min.js"></script>
 
 		<style>
 			/********** BEGIN RESET **********/
-			/* https://meyerweb.com/eric/tools/css/reset/ 
+			/* https://meyerweb.com/eric/tools/css/reset/
 			   v2.0 | 20110126
 			   License: none (public domain)
 			*/
-			
+
 			html, body, div, span, applet, object, iframe,
 			h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 			a, abbr, acronym, address, big, cite, code,
@@ -34,8 +34,8 @@
 			dl, dt, dd, ol, ul, li,
 			fieldset, form, label, legend,
 			table, caption, tbody, tfoot, thead, tr, th, td,
-			article, aside, canvas, details, embed, 
-			figure, figcaption, footer, header, hgroup, 
+			article, aside, canvas, details, embed,
+			figure, figcaption, footer, header, hgroup,
 			menu, nav, output, ruby, section, summary,
 			time, mark, audio, video {
 				margin: 0;
@@ -46,7 +46,7 @@
 				vertical-align: baseline;
 			}
 			/* HTML5 display-role reset for older browsers */
-			article, aside, details, figcaption, figure, 
+			article, aside, details, figcaption, figure,
 			footer, header, hgroup, menu, nav, section {
 				display: block;
 			}
@@ -78,29 +78,29 @@
 				background: #f1f1f1;
 				color: rgba(0, 0, 0, 0.5);
 			}
-			
+
 			b {
 				font-weight: bold;
 			}
-			
+
 			ul {
 				list-style: disc inside none;
 				margin: -1.4em 0.4em 1.4em;
 			}
-			
+
 			h1 {
 				font-size: 1.4em;
 				font-weight: bold;
 			}
-			
+
 			p {
 				margin-bottom: 1.4em;
 			}
-			
+
 			p:last-child {
 				margin-bottom: 0;
 			}
-			
+
 			td {
 				border: 0px solid  black;
 				padding: 2px;
@@ -113,7 +113,7 @@
 				margin: 10px;
 				display: inline-block;
 			}
-			
+
 			#qrresult {
 				background: #ffffff;
 				display: table;
@@ -126,7 +126,7 @@
 				width: 256px;
 				height: 256px;
 			}
-			
+
 			#qrsub {
 				margin: 0.2em auto 0;
 				font-family: Courier New;
@@ -138,7 +138,7 @@
 				font-family: Courier New;
 				display: table;
 			}
-			
+
 			#about {
 				border: 1px solid black;
 				float: left;
@@ -147,11 +147,11 @@
 				min-width: 335px;
 				width: 50%;
 			}
-			
+
 			#spread {
 				margin-top: 10px;
 			}
-			
+
 			input[type=text],
 			input[type=password] {
 				width: 100%;
@@ -160,34 +160,34 @@
 				-moz-box-sizing: border-box;    /* Firefox, other Gecko */
 				box-sizing: border-box;         /* Opera/IE 8+ */
 			}
-			
+
 			.radio {
 				display: inline;
 			}
-			
+
 			a {
 				text-decoration: none;
 				color: #0000cc;
 			}
-			
+
 			a:visited {
 				color: #0000cc;
 			}
-			
+
 			a:hover {
 				text-decoration: underline;
 				background: #eeeeff;
 			}
-			
+
 			tr:last-child td {
 				height: 4em;
 				vertical-align: bottom;
 			}
 		</style>
-		
+
 		<style target="card">
 			/****** Print Card ******/
-			
+
 			#card {
 				margin: 4mm;
 				width: 54mm;
@@ -198,7 +198,7 @@
 				font-size: 2.8mm;
 				line-height: 1;
 			}
-			
+
 			#card #cardcontent {
 				margin: 2mm;
 				height: 80mm;
@@ -208,14 +208,14 @@
 				border: 1px solid black;
 				position: absolute;
 			}
-			
+
 			#card #qrcode canvas {
 				width: 42mm;
 				height: 42mm;
 				margin: 3mm auto;
 				display: table;
 			}
-			
+
 			#card #qrtitle {
 				margin: 0 3mm;
 				font-weight: bold;
@@ -224,7 +224,7 @@
 			#card #qrkey {
 				margin: 0 3mm;
 			}
-			
+
 			#card #text {
 				margin: 3mm;
 			}
@@ -235,7 +235,7 @@
 				bottom: 3mm;
 				font-size: 80%;
 			}
-			
+
 			#card #wifilogo {
 				position: absolute;
 				left: 3mm;
@@ -267,7 +267,7 @@
 						})
 					.focus(function() { $(this).select() })
 					.mouseup(function(e) { e.preventDefault(); });
-				
+
 				$("#H").click(function() {
 					$(this).button('option', 'label', $(this).is(':checked') ? 'Hidden' : 'Visible');
 				});
@@ -285,12 +285,12 @@
 				str = str.replace(/,/g, "\\,");
 				return str;
 			}
-			
+
 			function generateQR(divCanvas, divText, divKey) {
 				var type = $("input:radio[name=T]:checked").val();
 				var ssid = mecard_escape($("#S").val());
 				var key = mecard_escape($("#P").val());
-			
+
 				var url = "WIFI:" +
 					"T:" + type + ";" +
 					"S:" + ssid + ";" +
@@ -300,14 +300,14 @@
 
 				divCanvas.empty().qrcode(url);
 				divText.html('' + $("#S").val() + ' (' + type + ')');
-				
+
 				if($('#PS').is(':checked')) {
 					divKey.html('' + key);
 				} else {
 					divKey.html('&nbsp;');
 				}
 			}
-			
+
 			window.printQR = function(targetWin) {
 				var printWin = window.open('', '_blank', '');
 
@@ -323,11 +323,11 @@
 				printWin.document.write('</div>');
 				printWin.document.write('</div>');
 				printWin.document.write('</bo'+'dy></ht'+'ml>');
-				
+
 				$("style[target='card']").each(function() {
 					$(printWin.document.head).append($(this).clone())
 				});
-				
+
 				generateQR($("#qrcode", printWin.document), $("#qrtitle", printWin.document), $("#qrkey", printWin.document));
 				$(printWin.document).ready(function() {
 					printWin.print();
@@ -336,7 +336,7 @@
 		</script>
 	</head>
 	<body>
-		<div id="fb-root"></div><script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id; js.src = "https://connect.facebook.net/nl_NL/all.js#xfbml=1"; fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</script>
+		<div id="fb-root"></div><script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/nl_NL/all.js#xfbml=1"; fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</script>
 
 			<div id="content">
 				<div id="qrresult">
@@ -375,7 +375,7 @@
 					</tr>
 				</table>
 				<div id="spread">
-					<a href="https://twitter.com/share" class="twitter-share-button" data-via="qistoph" data-hashtags="wifiqr">Tweet</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^https:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+					<a href="https://twitter.com/share" class="twitter-share-button" data-via="qistoph" data-hashtags="wifiqr">Tweet</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 					<div class="fb-like" data-href="https://qistoph.github.io/WiFiQR/" data-send="false" data-layout="button_count" data-width="200" data-show-faces="false" data-font="tahoma"></div>
 				</div>
 			</div>
@@ -409,7 +409,7 @@
 					<a href="LICENSE">MIT license</a>
 				</p>
 			</div>
-			
+
 		<a href="https://github.com/qistoph/WiFiQR/" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
 
 		<script type="text/javascript">
