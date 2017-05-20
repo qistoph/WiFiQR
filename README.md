@@ -3,4 +3,4 @@ WiFiQR
 
 Javascript WiFi QR-code generator
 
-View online: http://qistoph.github.io/WiFiQR/
+View online: https://qistoph.github.io/WiFiQR/
